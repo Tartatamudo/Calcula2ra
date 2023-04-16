@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -516,6 +515,7 @@ public class Calculadora {
         double num = validarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
+        System.out.println("[1]Perimetro");
         System.out.println("[1]Area");
         System.out.println("[2]Volumen");
 
@@ -523,9 +523,12 @@ public class Calculadora {
 
         switch (eleccion) {
             case 1:
-                resultado = CalcAreaCubo(num);
+                resultado = CalcPerCubo(num);
                 break;
             case 2:
+                resultado = CalcAreaCubo(num);
+                break;
+            case 3:
                 resultado = CalcVolumenCubo(num);
                 break;
         }
