@@ -10,7 +10,7 @@ public class Calculadora {
     }
 
     public static double DividirDos(double n1, double n2) {
-        double n3 = 0;
+        double n3;
         try {
             n3 = n1 / n2;
             return n3;
@@ -58,8 +58,7 @@ public class Calculadora {
         return 4*n1;
     }
     public static double CalcPerRectangulo(double n1, double n2){
-        double n3 = (n1*2) + (n2*2);
-        return n3;
+        return (n1*2) + (n2*2);
     }
     public static double CalcPerCirculo(double n1){
         double n2 = n1*(2*Math.PI);
