@@ -1,37 +1,34 @@
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Calculadora {
-    public static double sumaDos(double n1, double n2) {
+    public static double SumaDos(double n1, double n2) {
         return n1 + n2;
     }
 
-    public static double restaDos(double n1, double n2) {
+    public static double RestaDos(double n1, double n2) {
         return n1 - n2;
     }
 
     public static double DividirDos(double n1, double n2) {
-        double n3;
+        double n3 = 0;
         try {
             n3 = n1 / n2;
             return n3;
         } catch (ArithmeticException e) {
             System.out.println("No se puede dividir por 0");
+            n3 = 0;
         }
-        return 0;
+        return n3;
     }
 
     public static double MultiplicarDos(double n1, double n2){
         return n1*n2;
     }
     public static double MayorDos(double n1, double n2){
-        return Math.min(n1, n2);
+        return Math.max(n1, n2);
     }
     public static double MenorDos(double n1, double n2){
-        return Math.max(n1, n2);
+        return Math.min(n1, n2);
     }
     public static double ELevarNumero(double n1, double n2){
         return Math.pow(n1,n2);
@@ -41,17 +38,18 @@ public class Calculadora {
         return n1*(n2/100);
     }
 
-    public static List<Double> Cuadratica(List<Integer> lista) {
+    public static List<Double> Cuadratica(List<Double> lista) {
         double a = lista.get(0);
         double b = lista.get(1);
         double c = lista.get(2);
+
         b = -b;
         double calcRaiz = Math.pow(b, 2) - (4 * a * c);
 
         calcRaiz = Math.sqrt(calcRaiz);
 
-        double sol1 = (b + calcRaiz) / (2*a);
-        double sol2 = (b - calcRaiz) / (2*a);
+        double sol1 = DividirDos ((b + calcRaiz), (2*a));
+        double sol2 = DividirDos ((b - calcRaiz), (2*a));
 
         List<Double> resultado = Arrays.asList(sol1, sol2);
        return resultado;
@@ -95,7 +93,7 @@ public class Calculadora {
         return n2;
     }
     public static double CalcVolumenEsfera(double n1){
-        double n2 = (4*Math.PI*Math.pow(n1, 3))/3;
+        double n2 = DividirDos((4*Math.PI*Math.pow(n1, 3)), 3);
         return n2;
     }
     public static double CalcAreaCubo(double n1){
@@ -107,7 +105,7 @@ public class Calculadora {
         return n2;
     }
     public static double CalcVolCono(double n1, double n2){
-        double n3 = (Math.PI * Math.pow(n1, 2) * n2)/3;
+        double n3 = DividirDos((Math.PI * Math.pow(n1, 2) * n2), 3);
         return n3;
     }
     public static List<Double> CalcSistemaDe2Ecuaciones(List<Integer> lista){
@@ -127,9 +125,9 @@ public class Calculadora {
         n5 = -(n5*nn1);
         n6 = -(n6*nn1);
 
-        double var1 = (n1+n4 + n3+n6)/(n2+n5);
+        double var1 = DividirDos((n1+n4 + n3+n6), (n2+n5));
 
-        double var2 = (n3 - n2*var1)/n1;
+        double var2 = DividirDos((n3 - n2*var1), n1);
 
         List<Double> resultado = Arrays.asList(var1, var2);
         return resultado;
@@ -139,31 +137,31 @@ public class Calculadora {
             throw new RuntimeException("El número es infinito!");
         }
     }
-    public static double validarDoublePositivo(){
+    public static double ValidarDoublePositivo(){
         Scanner teclado = new Scanner(System.in);
         double num  = -1;
 
-        while(num < 0){
-           num = validarDouble();
+            while(num < 0){
+           num = ValidarDouble();
            if (num < 0 ){
                System.out.println("Debe escribir un numero positivo");
            }
         }
         return num;
     }
-    public static double validarDouble(){
+    public static double ValidarDouble(){
         Scanner teclado = new Scanner(System.in);
         double num = 0;
 
         try {
             num = teclado.nextDouble();
-        }catch (NumberFormatException ex){
-            System.out.println("Debe escribir un numero");
+        }catch (InputMismatchException e){
+            System.out.println("Debes escribir un numeroaaxaca");
         }
         return num;
     }
 
-    public static int validarEntero(){
+    public static int ValidarEntero(){
         Scanner teclado = new Scanner(System.in);
         int num = 0;
 
@@ -175,36 +173,7 @@ public class Calculadora {
         return num;
     }
 
-    public static void menu() {
-        double acum = 0;
-
-        System.out.println("Que desea hacer");
-        System.out.println(("[1]Calcular cosas basicas"));
-        System.out.println("[2]Calcular cosas de geometria");
-        System.out.println("[3]Calcular cosas extras");
-        System.out.println("[4]Calcular ecuacion cuadratica");
-        System.out.println("[5]Calcular sistema de ecuaciones");
-
-        int eleccion = validarEntero();
-        switch (eleccion) {
-            case 1:
-                menuCalculoBasico();
-                break;
-            case 2:
-                menuGeometria();
-                break;
-            case 3:
-                menuCalcularEtc();
-            case 4:
-                imprimirList(CalcularCuadratica());
-                break;
-            case 5:
-                imprimirList(CalcularSistemaDeEcuaciones());
-                break;
-        }
-    }
-
-    public static void menuCalcularEtc() {
+    public static void MenuCalcularEtc() {
         double resultado = 0;
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Mayor entre 2 numeros");
@@ -212,69 +181,69 @@ public class Calculadora {
         System.out.println("[3]Elevar un Numero");
         System.out.println("[4]Porcentaje numero");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
-                resultado = menuMayor2();
-                imprirDouble(resultado);
+                resultado = MenuMayor2();
+                ImprirDouble(resultado);
                 break;
             case 2:
-                resultado = menuMenor2();
-                imprirDouble(resultado);
+                resultado = MenuMenor2();
+                ImprirDouble(resultado);
                 break;
             case 3:
-                resultado = menuELevarNumero();
-                imprirDouble(resultado);
+                resultado = MenuELevarNumero();
+                ImprirDouble(resultado);
                 break;
             case 4:
-                resultado = menuPorcentajeNumero();
-                imprirDouble(resultado);
+                resultado = MenuPorcentajeNumero();
+                ImprirDouble(resultado);
             default:
-                imprirDouble(resultado);
+                ImprirDouble(resultado);
         }
     }
 
-    public static double menuPorcentajeNumero() {
+    public static double MenuPorcentajeNumero() {
         System.out.println("ELiga el numero a sacarle porcentaje");
-        double num1 = validarDouble();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga el porcentaje");
-        double num2 = validarDoublePositivo();
+        double num2 = ValidarDoublePositivo();
 
         return PorcentajeNumero(num1, num2);
     }
 
-    public static double menuELevarNumero() {
+    public static double MenuELevarNumero() {
         System.out.println("ELiga el numreo a ser elevado");
-        double num1 = validarDoublePositivo();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga la potencia");
-        double num2 = validarDoublePositivo();
+        double num2 = ValidarDoublePositivo();
 
         return ELevarNumero(num1, num2);
     }
 
-    public static double menuMenor2() {
+    public static double MenuMenor2() {
         System.out.println("ELiga el primer numero");
-        double num1 = validarDouble();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga el segundo numero");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
         return MenorDos(num1, num2);
     }
 
-    public static double menuMayor2() {
+    public static double MenuMayor2() {
         System.out.println("ELiga el primer numero");
-        double num1 = validarDouble();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga el segundo numero");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
         return MayorDos(num1, num2);
     }
-    public static void menuCalculoBasico() {
+    public static void MenuCalculoBasico() {
         double resultado = 0;
         int eleccion = 1;
         while (eleccion >0 && eleccion < 5){
@@ -284,62 +253,76 @@ public class Calculadora {
             System.out.println("[3]multiplicar");
             System.out.println("[4]Dividir");
 
-            eleccion = validarEntero();
+            eleccion = ValidarEntero();
 
             switch (eleccion) {
                 case 1:
                     resultado = menuSumar(resultado);
-                    imprirDouble(resultado);
+                    ImprirDouble(resultado);
                     break;
                 case 2:
-                    resultado = menuRestar(resultado);
-                    imprirDouble(resultado);
+                    resultado = MenuRestar(resultado);
+                    ImprirDouble(resultado);
                     break;
                 case 3:
-                    resultado = menuMultiplicar(resultado);
-                    imprirDouble(resultado);
+                    resultado = MenuMultiplicar(resultado);
+                    ImprirDouble(resultado);
                     break;
                 case 4:
-                    resultado = menuDividir(resultado);
-                    imprirDouble(resultado);
+                    resultado = MenuDividir(resultado);
+                    ImprirDouble(resultado);
                 default:
-                    imprirDouble(resultado);
+                    ImprirDouble(resultado);
             }
             System.out.println("Si desea seguir operando aqui oprima un numero del 1 al 4");
-            eleccion = validarEntero();
+            eleccion = ValidarEntero();
         }
 
     }
 
-    public static double menuDividir(double resultado) {
+    public static double MenuDividir(double resultado) {
         double num1 = 0;
         int val = 0;
+        double num2 = 0;
+
         if(resultado != 0){
             System.out.println("Si desea usar el numero que le dio antes escriba 1");
-            val = validarEntero();
+            val = ValidarEntero();
         }
 
         if (val == 1){
-            System.out.println(resultado);
-            num1 = resultado;
-        }else{
-            System.out.println("Eliga el primer numero");
-            num1 = validarDouble();
-        }
+            System.out.println("Eliga si lo quiere de minuendo o sustraendo");
+            System.out.println("[1]Dividendo");
+            System.out.println("[2]Divisor");
 
-        System.out.println("Elige el segundo numero");
-        double num2 = validarDouble();
+            int zal = ValidarEntero();
+            if (zal == 1){
+                num1 = resultado;
+                System.out.println("Eliga el Divisor");
+                num2 = ValidarDouble();
+            }else{
+                num2 = resultado;
+                System.out.println("Eliga el dividendo");
+                num1 = ValidarDouble();
+            }
+        }else{
+            System.out.println("Eliga el Dividendo");
+            num1 = ValidarDouble();
+
+            System.out.println("Elige el divisor");
+            num2 = ValidarDouble();
+        }
 
         return DividirDos(num1,num2);
     }
 
-    public static double menuMultiplicar(double resultado){
+    public static double MenuMultiplicar(double resultado){
         double num1 = 0;
         int val = 0;
 
         if(resultado != 0){
             System.out.println("Si desea usar el numero que le dio antes escriba 1");
-            val = validarEntero();
+            val = ValidarEntero();
         }
 
         if (val == 1){
@@ -347,34 +330,49 @@ public class Calculadora {
             num1 = resultado;
         }else{
             System.out.println("Eliga el primer numero");
-            num1 = validarDouble();
+            num1 = ValidarDouble();
         }
 
         System.out.println("Elige el segundo numero");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
         return MultiplicarDos(num1,num2);
     }
-    public static double menuRestar(double resultado){
+    public static double MenuRestar(double resultado){
         double num1 = 0;
         int val = 0;
+        double num2 = 0;
 
         if(resultado != 0){
             System.out.println("Si desea usar el numero que le dio antes escriba 1");
-            val = validarEntero();
+            val = ValidarEntero();
         }
 
         if (val == 1){
-            System.out.println(resultado);
-            num1 = resultado;
+            System.out.println("Eliga si lo quiere de minuendo o sustraendo");
+            System.out.println("[1]Minuendo");
+            System.out.println("[2]Sustraendo");
+
+            int zal = ValidarEntero();
+            if (zal == 1){
+                num1 = resultado;
+                System.out.println("Eliga el sustraendo");
+                num2 = ValidarDouble();
+            }else{
+                num2 = resultado;
+                System.out.println("Eliga el minuendo");
+                 num1 = ValidarDouble();
+            }
         }else{
-            System.out.println("Eliga el primer numero");
-            num1 = validarDouble();
+            System.out.println("Eliga el minuyendo");
+            num1 = ValidarDouble();
+
+            System.out.println("Elige sustraendo");
+            num2 = ValidarDouble();
         }
 
-        System.out.println("Elige el segundo numero");
-        double num2 = validarDouble();
-        return restaDos(num1,num2);
+
+        return RestaDos(num1,num2);
     }
     public static double menuSumar(double resultado){
         double num1 = 0;
@@ -382,7 +380,7 @@ public class Calculadora {
 
         if(resultado != 0){
             System.out.println("Si desea usar el numero que le dio antes escriba 1");
-            val = validarEntero();
+            val = ValidarEntero();
         }
 
         if (val == 1){
@@ -390,60 +388,63 @@ public class Calculadora {
             num1 = resultado;
         }else{
             System.out.println("Eliga el primer numero");
-            num1 = validarDouble();
+            num1 = ValidarDouble();
         }
 
         System.out.println("Elige el segundo numero");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
-        return sumaDos(num1,num2);
+        return SumaDos(num1,num2);
     }
 
-    public static List<Double> CalcularCuadratica(){
+    public static List<Double> MenuCuadratica(){
+        System.out.println("De la forma x^2 + x + c = 0");
         System.out.println("Elige el numero que va a estar con el x^2");
-        int a = validarEntero();
+        double a = ValidarDouble();
         System.out.println("Elige el numero que va a estar con el x");
-        int b = validarEntero();
+        double b = ValidarDouble();
         System.out.println("Elige el numero que va a estar solo");
-        int c = validarEntero();
+        double c = ValidarDouble();
 
-        List<Integer> cuadra = Arrays.asList(a, b, c);
+        List<Double> cuadra = Arrays.asList(a, b, c);
+
         List<Double> resultado  = Cuadratica(cuadra);
+
         return resultado;
     }
-    public static List<Double> CalcularSistemaDeEcuaciones(){
+    public static List<Double> MenuSistemaDeEcuaciones(){
         System.out.println("Elige los numeros de la primera ecuacion");
 
         System.out.println("Elige el numero que va a estar con la x");
-        int a = validarEntero();
+        int a = ValidarEntero();
         System.out.println("Elige el numero que va a estar con la y");
-        int b = validarEntero();
+        int b = ValidarEntero();
         System.out.println("Elige el numero que va a estar solo");
-        int c = validarEntero();
+        int c = ValidarEntero();
 
         System.out.println("Elige los numeros de la segunda ecuacion");
 
         System.out.println("Elige el numero que va a estar con la x");
-        int d = validarEntero();
+        int d = ValidarEntero();
         System.out.println("Elige el numero que va a estar con la y");
-        int e = validarEntero();
+        int e = ValidarEntero();
         System.out.println("Elige el numero que va a estar solo");
-        int f = validarEntero();
+        int f = ValidarEntero();
 
         List<Integer> cuadra = Arrays.asList(a, b, c, d, e, f);
         List<Double> resultado = CalcSistemaDe2Ecuaciones(cuadra);
         return resultado;
     }
-    public static void imprimirList(List<Double> lista){
+    public static void ImprimirList(List<Double> lista){
         for (int i = 0; i < lista.size(); i++) {
             System.out.println(lista.get(i));
         }
     }
-    public static void imprirDouble(double num){
+    public static void ImprirDouble(double num){
         System.out.println(num);
     }
 
-    public static void menuGeometria(){
+    public static void MenuGeometria(){
         double resultado = 0;
 
         System.out.println("Que geometria quiere usar:");
@@ -453,50 +454,50 @@ public class Calculadora {
         System.out.println("[4]Esfera");
         System.out.println("[5]Cubo");
         System.out.println("[6]Cono");
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
         switch (eleccion) {
             case 1:
-                resultado =menuCuadrado();
-                imprirDouble(resultado);
+                resultado = MenuCuadrado();
+                ImprirDouble(resultado);
                 break;
             case 2:
-                resultado = menuRectangulo();
-                imprirDouble(resultado);
+                resultado = MenuRectangulo();
+                ImprirDouble(resultado);
                 break;
             case 3:
-                resultado = menuCirculo();
-                imprirDouble(resultado);
+                resultado = MenuCirculo();
+                ImprirDouble(resultado);
                 break;
             case 4:
-                resultado = menuEsfera();
-                imprirDouble(resultado);
+                resultado = MenuEsfera();
+                ImprirDouble(resultado);
                 break;
             case 5:
-                resultado = menuCubo();
-                imprirDouble(resultado);
+                resultado = MenuCubo();
+                ImprirDouble(resultado);
                 break;
             case 6:
-                resultado = menuCono();
-                imprirDouble(resultado);
+                resultado = MenuCono();
+                ImprirDouble(resultado);
                 break;
             default:
                 System.out.println(resultado);
         }
     }
 
-    public static double menuCono() {
+    public static double MenuCono() {
         double resultado = 0;
         System.out.println("eliga el largo del radio");
-        double num1 = validarDouble();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga el largo del largo");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
         System.out.println("[2]Area");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -509,17 +510,17 @@ public class Calculadora {
         return resultado;
     }
 
-    public static double menuCubo() {
+    public static double MenuCubo() {
         double resultado = 0;
         System.out.println("eliga el largo de un lado");
-        double num = validarDouble();
+        double num = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Perimetro");
         System.out.println("[1]Area");
         System.out.println("[2]Volumen");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -535,16 +536,16 @@ public class Calculadora {
         return resultado;
     }
 
-    public static double menuEsfera() {
+    public static double MenuEsfera() {
         double resultado = 0;
         System.out.println("eliga el radio");
-        double num = validarDouble();
+        double num = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Area");
         System.out.println("[2]Volumen");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -558,19 +559,19 @@ public class Calculadora {
     }
 
 
-    public static double menuRectangulo() {
+    public static double MenuRectangulo() {
         double resultado = 0;
         System.out.println("eliga el largo del primer lado");
-        double num1 = validarDouble();
+        double num1 = ValidarDouble();
 
         System.out.println("Eliga el largo del segundo lado");
-        double num2 = validarDouble();
+        double num2 = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
         System.out.println("[2]Area");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -583,17 +584,17 @@ public class Calculadora {
         return resultado;
     }
 
-    public static double menuCirculo() {
+    public static double MenuCirculo() {
         double resultado = 0;
 
         System.out.println("eliga el largo del radio");
-        double num = validarDouble();
+        double num = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
         System.out.println("[2]Area");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -606,16 +607,16 @@ public class Calculadora {
         return resultado;
     }
 
-    public static double menuCuadrado() {
+    public static double MenuCuadrado() {
         double resultado = 0;
         System.out.println("eliga el largo de un lado");
-        double num = validarDouble();
+        double num = ValidarDouble();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
         System.out.println("[2]Area");
 
-        int eleccion = validarEntero();
+        int eleccion = ValidarEntero();
 
         switch (eleccion) {
             case 1:
@@ -627,10 +628,39 @@ public class Calculadora {
         }
         return resultado;
     }
+    public static void Menu() {
+        int eleccion = 1;
+        while ((eleccion > 0) &&(eleccion<6)){
+            System.out.println("Que desea hacer");
+            System.out.println(("[1]Calcular cosas basicas"));
+            System.out.println("[2]Calcular cosas de geometria");
+            System.out.println("[3]Calcular cosas extras");
+            System.out.println("[4]Calcular ecuacion cuadratica");
+            System.out.println("[5]Calcular sistema de ecuaciones");
+
+           eleccion = ValidarEntero();
+            switch (eleccion) {
+                case 1:
+                    MenuCalculoBasico();
+                    break;
+                case 2:
+                    MenuGeometria();
+                    break;
+                case 3:
+                    MenuCalcularEtc();
+                case 4:
+                    ImprimirList(MenuCuadratica());
+                    break;
+                case 5:
+                    ImprimirList(MenuSistemaDeEcuaciones());
+                    break;
+            }
+            System.out.println("Si desea continuar en el programa escriba un numero del 1 al 5");
+            eleccion = ValidarEntero();
+        }
+    }
 
     public static void main(String[] args) {
-        //imprimirList(CalcularCuadratica());
-        //imprimirList(CalcularSistemaDeEcuaciones());
-        menu();
+        Menu();
     }
 }
