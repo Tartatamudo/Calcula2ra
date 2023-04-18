@@ -38,10 +38,10 @@ public class Calculadora {
         return n1*(n2/100);
     }
 
-    public static List<Double> Cuadratica(List<Double> lista) {
-        double a = lista.get(0);
-        double b = lista.get(1);
-        double c = lista.get(2);
+    public static List<Double> Cuadratica(List<Integer> lista) {
+        int a = lista.get(0);
+        int b = lista.get(1);
+        int c = lista.get(2);
 
         b = -b;
         double calcRaiz = Math.pow(b, 2) - (4 * a * c);
@@ -65,7 +65,7 @@ public class Calculadora {
         return n2;
     }
     public static double CalcAreaEsfera(double n1){
-        double n2 = (2*Math.PI)*n1;
+        double n2 = (4*Math.PI)*(Math.pow(n1,2));
         return n2;
     }
     public static double CalcPerCubo(double n1){
@@ -88,8 +88,7 @@ public class Calculadora {
         return n3;
     }
     public static double CalcAreaCirculo(double n1){
-        double n2 = n1 * Math.pow(Math.PI, 2);
-        return n2;
+        return n1 * (Math.pow(Math.PI, 2));
     }
     public static double CalcVolumenEsfera(double n1){
         double n2 = DividirDos((4*Math.PI*Math.pow(n1, 3)), 3);
@@ -155,7 +154,7 @@ public class Calculadora {
         try {
             num = teclado.nextDouble();
         }catch (InputMismatchException e){
-            System.out.println("Debes escribir un numeroaaxaca");
+            System.out.println("Debes escribir un numero");
         }
         return num;
     }
@@ -168,6 +167,8 @@ public class Calculadora {
             num = teclado.nextInt();
         }catch (NumberFormatException ex){
             System.out.println("Debe escribir un numero");
+        }catch(InputMismatchException e){
+            System.out.println("Debe escribir un entero");
         }
         return num;
     }
@@ -251,7 +252,7 @@ public class Calculadora {
             System.out.println("[2]Restar");
             System.out.println("[3]multiplicar");
             System.out.println("[4]Dividir");
-
+            System.out.println("Si desea salir oprima cualquier otro numero");
             eleccion = ValidarEntero();
 
             switch (eleccion) {
@@ -273,8 +274,6 @@ public class Calculadora {
                 default:
                     ImprirDouble(resultado);
             }
-            System.out.println("Si desea seguir operando aqui oprima un numero del 1 al 4");
-            eleccion = ValidarEntero();
         }
 
     }
@@ -397,21 +396,27 @@ public class Calculadora {
     }
 
     public static List<Double> MenuCuadratica(){
+        System.out.println("Debe Escribir numeros enteros");
+
         System.out.println("De la forma x^2 + x + c = 0");
         System.out.println("Elige el numero que va a estar con el x^2");
-        double a = ValidarDouble();
+        int a = ValidarEntero();
         System.out.println("Elige el numero que va a estar con el x");
-        double b = ValidarDouble();
+        int b = ValidarEntero();
         System.out.println("Elige el numero que va a estar solo");
-        double c = ValidarDouble();
+        int c = ValidarEntero();
 
-        List<Double> cuadra = Arrays.asList(a, b, c);
+        List<Integer> cuadra = Arrays.asList(a, b, c);
 
         List<Double> resultado  = Cuadratica(cuadra);
 
         return resultado;
     }
     public static List<Double> MenuSistemaDeEcuaciones(){
+        System.out.println("Las 2 ecuaciones de la forma x + y = c");
+
+        System.out.println("Debe escribir numeros enteros");
+
         System.out.println("Elige los numeros de la primera ecuacion");
 
         System.out.println("Elige el numero que va a estar con la x");
@@ -512,7 +517,7 @@ public class Calculadora {
     public static double MenuCubo() {
         double resultado = 0;
         System.out.println("eliga el largo de un lado");
-        double num = ValidarDouble();
+        double num = ValidarDoublePositivo();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Perimetro");
@@ -538,7 +543,7 @@ public class Calculadora {
     public static double MenuEsfera() {
         double resultado = 0;
         System.out.println("eliga el radio");
-        double num = ValidarDouble();
+        double num = ValidarDoublePositivo();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Area");
@@ -587,7 +592,7 @@ public class Calculadora {
         double resultado = 0;
 
         System.out.println("eliga el largo del radio");
-        double num = ValidarDouble();
+        double num = ValidarDoublePositivo();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
@@ -609,7 +614,7 @@ public class Calculadora {
     public static double MenuCuadrado() {
         double resultado = 0;
         System.out.println("eliga el largo de un lado");
-        double num = ValidarDouble();
+        double num = ValidarDoublePositivo();
 
         System.out.println("ELiga lo que quiere hacer");
         System.out.println("[1]Diametro");
@@ -636,7 +641,7 @@ public class Calculadora {
             System.out.println("[3]Calcular cosas extras");
             System.out.println("[4]Calcular ecuacion cuadratica");
             System.out.println("[5]Calcular sistema de ecuaciones");
-
+            System.out.println("Si desea salir oprima cualquier otro numero");
            eleccion = ValidarEntero();
             switch (eleccion) {
                 case 1:
@@ -654,8 +659,7 @@ public class Calculadora {
                     ImprimirList(MenuSistemaDeEcuaciones());
                     break;
             }
-            System.out.println("Si desea continuar en el programa escriba un numero del 1 al 5");
-            eleccion = ValidarEntero();
+
         }
     }
 
