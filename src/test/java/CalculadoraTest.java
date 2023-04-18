@@ -238,4 +238,9 @@ class CalculadoraTest {
         assertEquals(2, resultadoo.get(0), delta);
         assertEquals(3, resultadoo.get(1), delta);
     }
+    @Test
+    void testCalcEcuacionDeLaRecta(){
+        assertEquals("y = 2.0x + 1.0", Calculadora.CalcEcuacionDeLaRecta(1,3,2,5));
+        assertEquals("y = 0.0x + 3.0", Calculadora.CalcEcuacionDeLaRecta(1,3,2,3));
+    }
 }

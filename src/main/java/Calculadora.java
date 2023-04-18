@@ -94,6 +94,11 @@ public class Calculadora {
         double n2 = DividirDos((4*Math.PI*Math.pow(n1, 3)), 3);
         return n2;
     }
+    public static String CalcEcuacionDeLaRecta(double x1,double y1, double x2, double y2){
+        double m = DividirDos(y2 - y1, x2 - x1);
+        double b = y1 - (m*x1);
+        return "y = " + m + "x " + "+ " + b;
+    }
     public static double CalcAreaCubo(double n1){
         double n2 = 6*Math.pow(n1,2);
         return n2;
@@ -634,13 +639,14 @@ public class Calculadora {
     }
     public static void Menu() {
         int eleccion = 1;
-        while ((eleccion > 0) &&(eleccion<6)){
+        while ((eleccion > 0) &&(eleccion<7)){
             System.out.println("Que desea hacer");
             System.out.println(("[1]Calcular cosas basicas"));
             System.out.println("[2]Calcular cosas de geometria");
             System.out.println("[3]Calcular cosas extras");
             System.out.println("[4]Calcular ecuacion cuadratica");
             System.out.println("[5]Calcular sistema de ecuaciones");
+            System.out.println("[6]Calcular ecuacion de la recta");
             System.out.println("Si desea salir oprima cualquier otro numero");
            eleccion = ValidarEntero();
             switch (eleccion) {
@@ -658,9 +664,28 @@ public class Calculadora {
                 case 5:
                     ImprimirList(MenuSistemaDeEcuaciones());
                     break;
+                case 6:
+                    MenuEcuacionDeLaRecta();
             }
 
         }
+    }
+
+    public static void MenuEcuacionDeLaRecta() {
+
+        System.out.println("Elige el x1");
+        double a = ValidarDouble();
+
+        System.out.println("Elige y1");
+        double b = ValidarDouble();
+
+        System.out.println("Elige el x2");
+        double c = ValidarDouble();
+
+        System.out.println("Eliga el y2");
+        double d = ValidarDouble();
+
+        System.out.println(CalcEcuacionDeLaRecta(a,b,c,d));
     }
 
     public static void main(String[] args) {
